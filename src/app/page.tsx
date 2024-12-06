@@ -6,12 +6,19 @@ import { Label } from "@/components/ui/label"
 
 import { Terminal } from "lucide-react";
 import TaskCard from "@/components/TaskCard";
+import { useState } from "react";
+import { Task, taskList } from "./public/main";
+
 
 
 
 export default function Home() {
+
+  const [task, setTask] = useState<String>('')
+  const [tasks, setTasks] = useState<Task[]>([])
+
   return (
-    <main className="flex flex-col items-center justify-between sm:max-w-[512px] md:max-w-[400px] max-w-[300px] p-14 pt-10 m-56 rounded-2xl bg-[#1D1825]">
+    <main className="flex flex-col items-center justify-between sm:max-w-[512px] md:max-w-[512px] max-w-[300px] p-14 pt-10 m-56 rounded-2xl bg-[#1D1825]">
     <div className="flex flex-row items-center justify-between ">
       <Input className="text-white placeholder:text-gray-600 mr-3 rounded-lg border-[#9E78CF]" placeholder="Add a new task." />
       <Button className="bg-[#9E78CF] p-3"><FaPlus style={{color: 'white', fontSize: '30px',}} /></Button>
@@ -19,7 +26,9 @@ export default function Home() {
     <br />
       <div className="flex flex-col items-start justify-start max-w-lg p-6">
           <Label htmlFor="label" className="justify-start text-white">Tasks to do - </Label>
-          <TaskCard />
+          {taskList.map((task) => (
+            <TaskCard key={task.id} title={task.title} completed={task.completed} />
+          ))}
       </div>  
     </main>
   );
